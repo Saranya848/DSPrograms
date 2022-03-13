@@ -5,46 +5,36 @@ import java.util.Scanner;
 public class Bank {
 
 	public static void main(String[] args) {
-		/**
-		 * PROCEDURE ========================================== 1.taking user input
-		 * choice 2.created object of class 3.calling method with help of object
-		 * ==========================================
-		 */
-		int ch;
-		System.out.println("Welcome to MyBank\n");
-		System.out.println("(Hint : your pasword is - 123 \n starting bal -2000)\n");
-		System.out.println("1.Deposite \n2.Witdrawal \n3.check balance");
-		System.out.println("\nHow can we Help You !\n");
 
-		/*
-		 * 1.taking user input choice
-		 */
-		System.out.print("\nEnter Your choice:");
-		Scanner s2 = new Scanner(System.in);
+		BankServer bs = new BankServer(5);
+		Scanner scan = new Scanner(System.in);
 
-		/*
-		 * 2.created object of class
-		 */
-		BankServer b = new BankServer();
-		ch = s2.nextInt();
+		while (true) {
+			System.out.println(
+					"\n 1. Add customer to queue\n 2. Remove customer from queue\n 3. Display queue\n 4. Exit");
+			System.out.println(" Please enter your choice: ");
+			int choice = scan.nextInt();
 
-		/*
-		 * 3.calling method with help of object
-		 */
-		switch (ch) {
-		case 1:
-			b.Deposite();
-
-			break;
-		case 2:
-			b.Withdrawl();
-			break;
-		case 3:
-			b.balance();
-			break;
-		default:
-			System.out.print("Invalid Choice");
+			switch (choice) {
+			case 1:
+				System.out.print(" Please enter the name of the customer: ");
+				String name = scan.next();
+				System.out.print(" Please enter the amount to be debited(-ve if withdrawal): ");
+				int amount = scan.nextInt();
+				bs.enqueue(amount, name);
+				break;
+			case 2:
+				bs.dequeue();
+				break;
+			case 3:
+				bs.display();
+				break;
+			case 4:
+				scan.close();
+				return;
+			default:
+				System.out.println(" Please enter a valid choice!");
+			}
 		}
-		s2.close();
 	}
 }
