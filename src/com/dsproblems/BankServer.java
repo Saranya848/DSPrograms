@@ -1,73 +1,46 @@
 package com.dsproblems;
 
-import java.util.Scanner;
-
 public class BankServer {
 
-	public double bal = 5000;
-	public double pwd;
-	int money;
+	int totalAmount = 0;
+	int head = -1;
+	int tail = -1;
+	String queue[];
 
-	/*
-	 * created method to deposite money
-	 */
-	public void Deposite() {
-		System.out.print("Enter password :");
-		Scanner s = new Scanner(System.in);
-		pwd = s.nextInt();
-
-		if (pwd == 123) {
-
-			System.out.print("\nEnter a Amount to Deposite :");
-			Scanner x1 = new Scanner(System.in);
-			money = x1.nextInt();
-
-			bal += money;
-			System.out.println("deposited money :" + money);
-			System.out.println("Total Account Balance is  :" + bal);
-			s.close();
-			x1.close();
-		} else {
-			System.out.println("Incorrect password");
-		}
+	public BankServer(int size) {
+		// TODO Auto-generated constructor stub
+		queue = new String[size];
 	}
 
-	/*
-	 * created method to withdrawal money
-	 */
-	public void Withdrawl() {
-		System.out.print("Enter password :");
-		Scanner s = new Scanner(System.in);
-		pwd = s.nextInt();
-
-		if (pwd == 123) {
-			System.out.print("\nEnter the Amount of Witdrawal :");
-			Scanner x1 = new Scanner(System.in);
-			money = x1.nextInt();
-
-			bal -= money;
-			System.out.println("Withdrawal money :" + money);
-			System.out.println("Total Account Balance is :" + bal);
-			x1.close();
-		} else {
-			System.out.println("Incorrect password");
+	public void enqueue(int amount, String name) {
+		if (tail < queue.length - 1) {
+			queue[++tail] = name;
+			totalAmount += amount;
+			if (head == -1) 
+				head++;
+			return;
 		}
-		s.close();
+
+		System.out.println(" The queue is full");
+
 	}
 
-	/*
-	 * created method to check balance
-	 */
-	public void balance() {
-		System.out.print("Enter password :");
-		Scanner s = new Scanner(System.in);
-		pwd = s.nextInt();
-
-		if (pwd == 123) {
-			System.out.println("Total Account Balance is :" + bal);
-		} else {
-			System.out.println("Incorrect password");
+	public void dequeue() {
+		if (head < queue.length && head < tail) {
+			head++;
 		}
-		s.close();
+
+	}
+	
+	public void display() {
+		System.out.println(" ---- QUEUE ----");
+		if (head > tail || head == -1) {
+			System.out.println(" [EMPTY] ");
+			return;
+		}
+		for(int i = head; i <= tail; i++) {
+			System.out.print(" " + queue[i]);
+		}
+		System.out.println();
 	}
 }
